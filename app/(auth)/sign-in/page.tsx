@@ -1,23 +1,10 @@
-import React from 'react';
-import {Button} from "@/components/ui/button";
+import AuthForm from "@/components/AuthForm";
 
 const SignIn = () => {
-    const handleSignIn = () => {
-        // Implement sign-in logic here
-        console.log('Signing in...');
-    };
-
     return (
-        <div>
-            <h2>Sign In</h2>
-            <form>
-                {/* Example of using Button component */}
-                <Button variant="destructive" size="default">
-                    Sign In
-                </Button>
-            </form>
-        </div>
-    );
-};
-
-export default SignIn;
+        <section className="flex-center size-full max-sm:px-6">
+            <AuthForm type="sign-in"/>
+        </section>
+    )
+}
+export default SignIn

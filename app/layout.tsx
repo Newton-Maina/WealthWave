@@ -9,8 +9,8 @@ const ibmPlexSerif = IBM_Plex_Serif({
   variable: '--font-ibm-plex-serif'
 })
 export const metadata: Metadata = {
-  title: "Bankify",
-  description: "Bankify is a modern banking platform for everyone",
+  title: "WealthWave",
+  description: "WealthWave is a modern banking platform for everyone",
   icons: {
     icon: '/icon/logo.svg'
   }

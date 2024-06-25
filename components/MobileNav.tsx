@@ -18,9 +18,9 @@ const MobileNav = ({user}:MobileNavProps) => {
                 </SheetTrigger>
                 <SheetContent side="left" className="border-none bg-white">
                     <Link href="/" className="cursor-pointer flex items-center gap-1 px-4">
-                        <Image src="/icons/logo.svg" alt="Bankify-logo"
+                        <Image src="/icons/logo.svg" alt="WealthWave-logo"
                                width={34} height={34}/>
-                        <h1 className="text-26 font-ibm-plex-serif font-bold text-black-1">Bankify</h1>
+                        <h1 className="text-26 font-ibm-plex-serif font-bold text-black-1">WealthWave</h1>
                     </Link>
                     <div className="mobilenav-sheet">
                         <SheetClose asChild>
