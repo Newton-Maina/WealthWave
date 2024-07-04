@@ -14,6 +14,7 @@ import {authFormSchema} from "@/lib/utils";
 import {Loader2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {getLoggedInUser, signIn, signUp } from '@/lib/actions/user.actions';
+import PlaidLink from './PlaidLink';
 
 
 
@@ -38,8 +39,21 @@ const AuthForm = ({type}: {type: string}) => {
 
         try {
             // Sign up with Appwrite & create plaid token
+            const userData = {
+                firstName: data.firstName!,
+                lastName: data.lastName!,
+                address1:data.address1!,
+                city: data.city!,
+                state:data.state!,
+                postalCode:data.postalCode!,
+                dateOfBirth:data.dateOfBirth!,
+                ssn:data.ssn!,
+                email:data.email,
+                password:data.password
+            }
+
             if (type === 'sign-up'){
-                const newUser = await signUp(data);
+                const newUser = await signUp(userData);
 
                 setUser(newUser)
             }
@@ -85,12 +99,11 @@ const AuthForm = ({type}: {type: string}) => {
                     </h1>
                 </div>
             </header>
-            {user
-                ? (
+            {user ? (
                     <div className="flex flex-col gap-4">
-                        {/* PlaidLink */}
+                        <PlaidLink user={user} variant="primary"/>
                     </div>
-                ): (
+            ): (
                     <>
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -117,7 +130,7 @@ const AuthForm = ({type}: {type: string}) => {
                                        />
                                         <div className="flex gap-4">
                                             <CustomInput
-                                                control={form.control} name='country' label='Country/State'
+                                                control={form.control} name='state' label='Country/State'
                                                 placeholder='ex: KE'
                                             />
                                             <CustomInput
@@ -132,7 +145,7 @@ const AuthForm = ({type}: {type: string}) => {
                                                 placeholder='yyyy-mm-dd'
                                             />
                                             <CustomInput
-                                                control={form.control} name='idOrSsn' label='SSN/ID'
+                                                control={form.control} name='ssn' label='SSN/ID'
                                                 placeholder='ex: 1234..'
                                             />
                                         </div>
@@ -174,8 +187,7 @@ const AuthForm = ({type}: {type: string}) => {
                             </Link>
                         </footer>
                     </>
-                )
-            }
+            )}
         </section>
     )
 }
