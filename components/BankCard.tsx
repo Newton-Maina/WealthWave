@@ -1,16 +1,17 @@
 import Link from "next/link";
 import {formatAmount} from "@/lib/utils";
 import Image from "next/image";
+import Copy from "./Copy";
 
 const BankCard = ({account, userName, showBalance=true}:
                       CreditCardProps) => {
     return (
         <div className="flex flex-col">
-            <Link href="/" className="bank-card">
+            <Link href={`/transaction-history/?id=${account.appwriteItemId}`} className="bank-card">
                 <div className="bank-card_content">
                     <div>
                         <h1 className="text-16 font-semibold text-white">
-                            {userName}
+                            {account.name}
                         </h1>
                         <p className="font-ibm-plex-serif fonnt-black text-white">
                             {formatAmount(account.currentBalance)}
@@ -26,7 +27,7 @@ const BankCard = ({account, userName, showBalance=true}:
                             </h2>
                         </div>
                         <p className="text-14 font-semibold tracking-[1.1px] text-white">
-                            ●●●● ●●●● ●●●● <span className="text-16">1234</span>
+                            ●●●● ●●●● ●●●● {account?.mask}
                         </p>
                     </article>
                 </div>
@@ -36,7 +37,7 @@ const BankCard = ({account, userName, showBalance=true}:
                 </div>
                 <Image src="/icons/lines.png" width={316} height={190} className="absolute top-0 left-0" alt="lines"/>
             </Link>
-            {/*  COPY */}
+            {showBalance && <Copy title={account?.sharableId} />}
         </div>
     )
 }
