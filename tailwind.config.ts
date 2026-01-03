@@ -20,6 +20,16 @@ const config = {
     },
     extend: {
       colors: {
+        primary: "#718096",
+        secondary: "#4A5568",
+        "background-light": "#F7FAFC",
+        "background-dark": "#1A202C",
+        "surface-light": "#FFFFFF",
+        "surface-dark": "#2D3748",
+        "text-main-light": "#2D3748",
+        "text-main-dark": "#F7FAFC",
+        "text-sub-light": "#718096",
+        "text-sub-dark": "#A0AEC0",
         fill: {
           1: "rgba(255, 255, 255, 0.10)",
         },
@@ -82,6 +92,21 @@ const config = {
         profile:
           "0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03)",
         creditCard: "8px 10px 16px 0px rgba(0, 0, 0, 0.05)",
+        soft: "0 4px 20px -2px rgba(0, 0, 0, 0.05)",
+        "soft-xl": "0 20px 40px -4px rgba(0, 0, 0, 0.08)",
+      },
+      fontSize: {
+        10: ["10px", "14px"],
+        12: ["12px", "16px"],
+        14: ["14px", "20px"],
+        16: ["16px", "24px"],
+        18: ["18px", "22px"],
+        20: ["20px", "24px"],
+        24: ["24px", "30px"],
+        26: ["26px", "32px"],
+        30: ["30px", "38px"],
+        36: ["36px", "44px"],
+        72: ["72px", "90px"],
       },
       fontFamily: {
         inter: "var(--font-inter)",

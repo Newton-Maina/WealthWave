@@ -12,7 +12,7 @@ const RightSidebar = ({user, transactions, banks}:
         countTransactionCategories(transactions);
 
     return (
-        <aside className="right-sidebar">
+        <aside className="right-sidebar min-h-[111vh]">
             <section className="flex flex-col pb-8">
                 <div className="profile-banner" />
                     <div className="profile">
@@ -67,9 +67,42 @@ const RightSidebar = ({user, transactions, banks}:
                         Top Categories
                     </h2>
                     <div className="space-y-5">
-                        {categories.map((category, index) => (
-                            <Category key={category.name} category={category}/>
-                        ))}
+                        {categories.length > 0 ? (
+                            categories.map((category, index) => (
+                                <Category key={category.name} category={category}/>
+                            ))
+                        ) : (
+                            <p className="text-14 text-gray-500">No transactions yet to categorize.</p>
+                        )}
+                    </div>
+                </div>
+
+                <div className="mt-10 flex flex-col gap-6">
+                    <h2 className="header-2">
+                        Recent Notifications
+                    </h2>
+                    <div className="space-y-4">
+                        <div className="flex gap-3 p-3 rounded-lg bg-blue-50 border border-blue-100">
+                             <div className="size-2 mt-1.5 rounded-full bg-blue-500" />
+                             <div className="flex flex-col gap-1">
+                                <p className="text-12 font-semibold text-gray-700">New Login Detected</p>
+                                <p className="text-10 text-gray-500">Your account was accessed from a new device.</p>
+                             </div>
+                        </div>
+                        <div className="flex gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100">
+                             <div className="size-2 mt-1.5 rounded-full bg-gray-300" />
+                             <div className="flex flex-col gap-1">
+                                <p className="text-12 font-semibold text-gray-700">Plaid Sync Complete</p>
+                                <p className="text-10 text-gray-500">Your bank transactions have been updated.</p>
+                             </div>
+                        </div>
+                        <div className="flex gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100">
+                             <div className="size-2 mt-1.5 rounded-full bg-gray-300" />
+                             <div className="flex flex-col gap-1">
+                                <p className="text-12 font-semibold text-gray-700">Security Passphrase Set</p>
+                                <p className="text-10 text-gray-500">Recovery passphrase "Current City" is active.</p>
+                             </div>
+                        </div>
                     </div>
                 </div>
             </section>

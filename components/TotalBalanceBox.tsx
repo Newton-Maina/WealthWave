@@ -19,11 +19,12 @@ const TotalBalanceBox = ({
                         Total Current Balance
                     </p>
 
-                    <div className="total-balance-amount flex-center gap-2">
-                        <AnimatedCounter amount=
-                                             {totalCurrentBalance}/>
-
+                    <div className="total-balance-amount flex-center gap-2 font-ibm-plex-serif font-bold text-gray-900">
+                        <AnimatedCounter amount={totalCurrentBalance} />
                     </div>
+                    <p className="text-10 text-gray-400 mt-2 font-medium italic">
+                        Last updated: {new Date().toLocaleTimeString()}
+                    </p>
                 </div>
             </div>
 

@@ -8,6 +8,7 @@ import {sidebarLinks} from "@/constants";
 import {cn} from "@/lib/utils";
 import {usePathname} from "next/navigation";
 import Footer from "./Footer";
+import PlaidLink from "./PlaidLink";
 
 const MobileNav = ({user}:MobileNavProps) => {
     const pathname = usePathname();
@@ -25,10 +26,19 @@ const MobileNav = ({user}:MobileNavProps) => {
                     </Link>
                     <div className="mobilenav-sheet">
                         <SheetClose asChild>
-                            <nav className="flex h-full flex-col gap-6 pt-16 text-white">
+                            <nav className="flex flex-col gap-6 pt-16 text-white">
                                 {sidebarLinks.map((item)=>{
                                     const  isActive =
                                         pathname === item.route || pathname.startsWith(`${item.route}/`)
+                                    
+                                    if (item.label === 'Connect Bank') {
+                                        return (
+                                            <div key={item.label} className="w-full">
+                                                <PlaidLink user={user} variant="ghost" />
+                                            </div>
+                                        )
+                                    }
+
                                     return(
                                         <SheetClose asChild key={item.route}>
                                             <Link href={item.route} key={item.label} className={cn('mobilenav-sheet_close w-full', {'bg-bank-gradient': isActive})}>
@@ -41,8 +51,6 @@ const MobileNav = ({user}:MobileNavProps) => {
                                         </SheetClose>
                                     )
                                 })}
-
-                                USER
                             </nav>
                         </SheetClose>
 

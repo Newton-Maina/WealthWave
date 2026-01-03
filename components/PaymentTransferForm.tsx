@@ -59,6 +59,10 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
       });
       const senderBank = await getBank({ documentId: data.senderBank });
 
+      if (!senderBank || !receiverBank) {
+          throw new Error("Bank information not found");
+      }
+
       const transferParams = {
         sourceFundingSourceUrl: senderBank.fundingSourceUrl,
         destinationFundingSourceUrl: receiverBank.fundingSourceUrl,
@@ -72,9 +76,9 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
         const transaction = {
           name: data.name,
           amount: data.amount,
-          senderId: senderBank.userId.$id,
+          senderId: senderBank.userId,
           senderBankId: senderBank.$id,
-          receiverId: receiverBank.userId.$id,
+          receiverId: receiverBank.userId,
           receiverBankId: receiverBank.$id,
           email: data.email,
         };
@@ -92,6 +96,18 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
 
     setIsLoading(false);
   };
+
+  if (accounts.length === 0) {
+      return (
+          <div className="flex flex-col items-center justify-center p-8 bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl mt-10">
+              <p className="text-16 font-semibold text-gray-600 mb-2">No accounts found</p>
+              <p className="text-14 text-gray-500 mb-6 text-center">You need to connect at least one bank account to make a transfer.</p>
+              <Button onClick={() => router.push('/')} className="bg-bank-gradient text-white">
+                  Add Bank Account
+              </Button>
+          </div>
+      )
+  }
 
   return (
     <Form {...form}>
@@ -223,11 +239,14 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
                 </FormLabel>
                 <div className="flex w-full flex-col">
                   <FormControl>
-                    <Input
-                      placeholder="ex: 5.00"
-                      className="input-class"
-                      {...field}
-                    />
+                    <div className="flex rounded-lg border border-gray-300 overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition-all">
+                         <div className="flex items-center px-4 bg-gray-50 border-r border-gray-300 text-gray-600 font-semibold text-14">USD</div>
+                        <Input
+                          placeholder="ex: 5.00"
+                          className="input-class border-none rounded-none focus-visible:ring-0 shadow-none h-full"
+                          {...field}
+                        />
+                    </div>
                   </FormControl>
                   <FormMessage className="text-12 text-red-500" />
                 </div>

@@ -34,8 +34,9 @@ export const createFundingSource = async (
         plaidToken: options.plaidToken,
       })
       .then((res) => res.headers.get("location"));
-  } catch (err) {
-    console.error("Creating a Funding Source Failed: ", err);
+  } catch (err: any) {
+    console.error("Creating a Funding Source Failed: ", err.message);
+    if (err.body) console.error("Error body:", JSON.stringify(err.body, null, 2));
   }
 };
 
@@ -46,8 +47,8 @@ export const createOnDemandAuthorization = async () => {
     );
     const authLink = onDemandAuthorization.body._links;
     return authLink;
-  } catch (err) {
-    console.error("Creating an On Demand Authorization Failed: ", err);
+  } catch (err: any) {
+    console.error("Creating an On Demand Authorization Failed: ", err.message);
   }
 };
 
@@ -58,8 +59,9 @@ export const createDwollaCustomer = async (
     return await dwollaClient
       .post("customers", newCustomer)
       .then((res) => res.headers.get("location"));
-  } catch (err) {
-    console.error("Creating a Dwolla Customer Failed: ", err);
+  } catch (err: any) {
+    console.error("Creating a Dwolla Customer Failed: ", err.message);
+    if (err.body) console.error("Error body:", JSON.stringify(err.body, null, 2));
   }
 };
 
@@ -86,8 +88,9 @@ export const createTransfer = async ({
     return await dwollaClient
       .post("transfers", requestBody)
       .then((res) => res.headers.get("location"));
-  } catch (err) {
-    console.error("Transfer fund failed: ", err);
+  } catch (err: any) {
+    console.error("Transfer fund failed: ", err.message);
+    if (err.body) console.error("Error body:", JSON.stringify(err.body, null, 2));
   }
 };
 

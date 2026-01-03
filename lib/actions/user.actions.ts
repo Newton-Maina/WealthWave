@@ -128,8 +128,11 @@ export const logoutAccount = async () => {
 
         cookies().delete('appwrite-session');
         await account.deleteSession('current');
+        return true;
     } catch (error) {
-        return null;
+        // If there is no session or an error occurs, we still want to redirect the user
+        cookies().delete('appwrite-session');
+        return true;
     }
 }
 
@@ -140,7 +143,7 @@ export const createLinkToken = async (user: User)=> {
                 client_user_id: user.$id
             },
             client_name: `${user.firstName} ${user.lastName}`,
-            products: ['auth'] as Products[],
+            products: ['auth', 'transactions'] as Products[],
             language: 'en',
             country_codes: ['US'] as CountryCode[],
         }
@@ -262,6 +265,8 @@ export const getBanks = async ({userId}: getBanksProps) => {
 
 export const getBank = async ({documentId}: getBankProps) => {
     try {
+        if (!documentId) return null;
+
         const { database } = await createAdminClient();
 
         const bank = await database.listDocuments(
@@ -290,6 +295,45 @@ export const getBankByAccountId = async ({accountId}: getBankByAccountIdProps) =
         return parseStringify(bank.documents[0]);
     } catch (error){
         console.log(error)
+    }
+}
+
+export const verifyRecovery = async ({ email, city, ssn }: { email: string, city: string, ssn: string }) => {
+    try {
+        const { database } = await createAdminClient();
+
+        const user = await database.listDocuments(
+            DATABASE_ID!,
+            USER_COLLECTION_ID!,
+            [
+                Query.equal('email', [email]),
+                Query.equal('city', [city]),
+                Query.equal('ssn', [ssn])
+            ]
+        )
+
+        if (user.total === 1) {
+            // Success! In a real app, you'd send an email here.
+            await sendEmailNotification({
+                to: email,
+                subject: "Password Recovery",
+                text: "Your account recovery was successful. Click here to reset your password."
+            });
+            return parseStringify(user.documents[0]);
+        }
+        return null;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const sendEmailNotification = async ({ to, subject, text }: { to: string, subject: string, text: string }) => {
+    try {
+        // Mock email sending logic
+        console.log(`[EMAIL SENT] To: ${to} | Subject: ${subject} | Content: ${text}`);
+        return true;
+    } catch (error) {
+        console.log(error);
     }
 }
 

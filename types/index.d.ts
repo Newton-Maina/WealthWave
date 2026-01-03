@@ -327,3 +327,9 @@ declare interface getBankProps {
 declare interface getBankByAccountIdProps {
   accountId: string;
 }
+
+declare interface CreateNotificationParams {
+  userId: string;
+  message: string;
+  type: 'transfer' | 'alert' | 'info';
+}

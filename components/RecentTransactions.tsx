@@ -24,6 +24,23 @@ const RecentTransactions = ({
         indexOfFirstTransaction, indexOfLastTransaction
     )
 
+    if (accounts.length === 0) {
+        return (
+            <section className="recent-transactions">
+                <header className="flex items-center justify-between">
+                    <h2 className="recent-transactions-label">
+                        Recent Transactions
+                    </h2>
+                </header>
+                <div className="flex w-full flex-col gap-4 p-4 items-center justify-center">
+                    <p className="text-14 text-gray-500">
+                        No bank accounts linked. Please link a bank account to view transactions.
+                    </p>
+                </div>
+            </section>
+        )
+    }
+
     return (
         <section className="recent-transactions">
             <header className="flex items-center justify-between">

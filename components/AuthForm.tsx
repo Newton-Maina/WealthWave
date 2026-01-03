@@ -159,6 +159,13 @@ const AuthForm = ({type}: {type: string}) => {
                                     control={form.control} name='password' label='Password'
                                     placeholder='Enter your password'
                                 />
+                                {type === 'sign-in' && (
+                                    <div className="flex justify-end">
+                                        <Link href="/forgot-password" className="text-14 font-medium text-gray-600 hover:text-bankGradient">
+                                            Forgot Password?
+                                        </Link>
+                                    </div>
+                                )}
                                 <div className="flex flex-col gap-4">
                                     <Button type="submit" disabled={isLoading} className="form-btn">
                                         {isLoading ? (

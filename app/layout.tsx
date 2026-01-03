@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic'
-import type { Metadata } from "next";
 import { Inter, IBM_Plex_Serif } from "next/font/google";
 import "./globals.css";
 
@@ -9,11 +7,12 @@ const ibmPlexSerif = IBM_Plex_Serif({
   weight: ['400', '700'],
   variable: '--font-ibm-plex-serif'
 })
+
 export const metadata: Metadata = {
   title: "WealthWave",
-  description: "WealthWave is a modern banking platform for everyone",
+  description: "WealthWave is a modern banking platform for everyone.",
   icons: {
-    icon: '/icon/logo.svg'
+    icon: '/icons/logo.svg'
   }
 };
 
@@ -23,7 +22,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+      </head>
       <body className={`${inter.variable} ${ibmPlexSerif.variable}`}>{children}</body>
     </html>
   );

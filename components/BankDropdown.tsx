@@ -23,6 +23,16 @@ export const BankDropdown = ({
   const router = useRouter();
   const [selected, setSeclected] = useState(accounts[0]);
 
+  if (!selected) {
+      return (
+          <Select disabled>
+              <SelectTrigger className={`flex w-full bg-white gap-3 md:w-[300px] ${otherStyles}`}>
+                  <p className="line-clamp-1 w-full text-left">No accounts available</p>
+              </SelectTrigger>
+          </Select>
+      )
+  }
+
   const handleBankChange = (id: string) => {
     const account = accounts.find((account) => account.appwriteItemId === id)!;
 
