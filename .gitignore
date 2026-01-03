@@ -28,6 +28,9 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# custom build output (Webpack / server build)
+build_output/
+
 # vercel
 .vercel
 
