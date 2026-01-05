@@ -16,6 +16,7 @@ import { getTransactionsByBankId } from "./transactions.actions";
 import { getBanks, getBank } from "./user.actions";
 
 // Get multiple bank accounts
+// Fetches all accounts associated with a specific user from Plaid
 export const getAccounts = async ({ userId }: getAccountsProps) => {
   try {
     // get banks from db

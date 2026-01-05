@@ -17,6 +17,7 @@ const {
 
 export const getUserInfo = async ({userId}:getUserInfoProps) => {
     try {
+        // Fetch user information from the Appwrite database
         const { database } = await createAdminClient();
 
         const user = await database.listDocuments(

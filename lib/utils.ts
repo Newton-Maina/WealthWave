@@ -10,6 +10,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // FORMAT DATE TIME
+// This function helps in formatting dates across the application
 export const formatDateTime = (dateString: Date) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
     weekday: "short", // abbreviated weekday name (e.g., 'Mon')
