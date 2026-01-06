@@ -41,7 +41,7 @@ const CreditCardWidget = ({ account, variant = 'primary' }: { account: Account, 
 
         <div className="z-10 mt-4">
             <div className="flex justify-between items-center mb-4">
-                 <Image src="/icons/chip.svg" width={40} height={40} alt="chip" className="opacity-100 drop-shadow-sm" />
+                 <Image src="/icons/chip.png" width={40} height={40} alt="chip" className="opacity-100 drop-shadow-sm" />
                  {!isPrimary && <Image src="/icons/wifi.svg" width={24} height={24} alt="wifi" className="rotate-90 text-gray-400 opacity-50" />}
             </div>
             <p className={cn("text-xl tracking-widest font-mono", { "text-white/90": isPrimary, "text-gray-500": !isPrimary })}>

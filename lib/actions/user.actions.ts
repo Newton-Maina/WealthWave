@@ -50,6 +50,7 @@ export const signIn = async ({email, password}: signInProps) => {
 
     } catch (error) {
         console.error('Error', error);
+        return null;
     }
 }
 
@@ -107,6 +108,7 @@ export const signUp = async ({ password, ...userData}:SignUpParams) => {
 
     } catch (error) {
         console.error('Error', error);
+        return null;
     }
 }
 

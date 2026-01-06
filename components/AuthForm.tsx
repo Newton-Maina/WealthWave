@@ -22,6 +22,7 @@ const AuthForm = ({type}: {type: string}) => {
     const router = useRouter();
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const formSchema = authFormSchema(type);
 
@@ -29,13 +30,14 @@ const AuthForm = ({type}: {type: string}) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            email: type === 'sign-in' ? "testingcodesbynewton10@gmail.com" : "",
+            email: type === 'sign-in' ? "testusercodesbynewton10@gmail.com" : "",
             password: type === 'sign-in' ? "Shipstar123" : '',
         },
     })
 
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
         setIsLoading(true)
+        setErrorMessage('')
 
         try {
             // Sign up with Appwrite & create plaid token
@@ -55,7 +57,11 @@ const AuthForm = ({type}: {type: string}) => {
             if (type === 'sign-up'){
                 const newUser = await signUp(userData);
 
-                setUser(newUser)
+                if (newUser) {
+                  setUser(newUser)
+                } else {
+                  setErrorMessage('Failed to sign up. Please try again.')
+                }
             }
             if (type === 'sign-in'){
                 const response = await signIn({
@@ -63,10 +69,15 @@ const AuthForm = ({type}: {type: string}) => {
                     password: data.password,
                 })
 
-                if(response) router.push('/')
+                if(response) {
+                  router.push('/')
+                } else {
+                  setErrorMessage('Invalid credentials. Please check your email and password.')
+                }
             }
         } catch (error) {
             console.log(error);
+            setErrorMessage('An unexpected error occurred. Please try again.')
         } finally {
            setIsLoading(false)
         }
@@ -166,6 +177,13 @@ const AuthForm = ({type}: {type: string}) => {
                                         </Link>
                                     </div>
                                 )}
+                                
+                                {errorMessage && (
+                                    <div className="p-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-md">
+                                        {errorMessage}
+                                    </div>
+                                )}
+
                                 <div className="flex flex-col gap-4">
                                     <Button type="submit" disabled={isLoading} className="form-btn">
                                         {isLoading ? (
@@ -177,6 +195,12 @@ const AuthForm = ({type}: {type: string}) => {
                                             ? 'Sign In':'Sign Up'
                                         }
                                     </Button>
+                                    
+                                    {type === 'sign-in' && (
+                                        <p className="text-12 font-normal text-gray-500 text-center">
+                                            *Autofilled credentials are for testing purposes
+                                        </p>
+                                    )}
                                 </div>
                             </form>
                         </Form>
