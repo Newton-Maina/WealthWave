@@ -50,7 +50,7 @@ export const signIn = async ({email, password}: signInProps) => {
 
     } catch (error) {
         console.error('Error', error);
-        return null;
+        return { error: error instanceof Error ? error.message : 'Unknown error occurred' };
     }
 }
 
@@ -108,7 +108,7 @@ export const signUp = async ({ password, ...userData}:SignUpParams) => {
 
     } catch (error) {
         console.error('Error', error);
-        return null;
+        return { error: error instanceof Error ? error.message : 'Unknown error occurred' };
     }
 }
 

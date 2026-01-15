@@ -57,7 +57,9 @@ const AuthForm = ({type}: {type: string}) => {
             if (type === 'sign-up'){
                 const newUser = await signUp(userData);
 
-                if (newUser) {
+                if (newUser?.error) {
+                    setErrorMessage(newUser.error)
+                } else if (newUser) {
                   setUser(newUser)
                 } else {
                   setErrorMessage('Failed to sign up. Please try again.')
@@ -69,7 +71,9 @@ const AuthForm = ({type}: {type: string}) => {
                     password: data.password,
                 })
 
-                if(response) {
+                if (response?.error) {
+                    setErrorMessage(response.error)
+                } else if(response) {
                   router.push('/')
                 } else {
                   setErrorMessage('Invalid credentials. Please check your email and password.')
